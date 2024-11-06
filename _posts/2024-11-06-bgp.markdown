@@ -1,0 +1,54 @@
+---
+layout:     post
+title:      "Understanding BGP"
+subtitle:   "\"Introduction to Border Gateway Protocol (BGP)\""
+date:       2024-11-06 12:00:00
+author:     "Your Name"
+header-img: "img/post-bg-bgp.jpg"
+catalog: true
+tags:
+    - Networking
+    - Protocols
+---
+
+> “BGP is the backbone of the Internet routing. ”
+
+Today, let's dive into the Border Gateway Protocol (BGP) and understand why it is so crucial for global Internet connectivity.
+
+[Jump to Technical Details](#details)
+
+## Introduction
+
+Border Gateway Protocol (BGP) is one of the key protocols that powers the global Internet, allowing diverse networks (known as Autonomous Systems or ASes) to communicate and exchange routing information. This protocol enables data to travel efficiently from its source to its destination across a network of interconnected ASes. BGP is especially essential for ISPs, data centers, and large-scale networks that require efficient and reliable routing.
+
+While protocols like RIP and OSPF are commonly used within a local network (Intra-AS), BGP is primarily used between large networks (Inter-AS), making it the go-to protocol for Internet-scale routing.
+
+<p id="details"></p>
+
+## Technical Details of BGP
+
+BGP's design provides several advantages for Internet routing, such as:
+
+* **Path Vector Protocol**: BGP is a path vector protocol, meaning it uses a list of ASes to determine the best path to reach a network. Each AS in the path acts as a hop in the routing information.
+* **Scalability**: BGP can handle the large number of routes on the Internet, thanks to its robust scalability.
+* **Policy-based Routing**: BGP allows network operators to define policies that influence route selection, making it flexible in terms of controlling the data flow.
+* **Efficient Failover**: By maintaining multiple possible paths, BGP provides alternate routing options when a path fails, thus enhancing network resilience.
+
+BGP has two primary operational modes:
+
+1. **EBGP (External BGP)**: Used for routing between different ASes. This is the mode typically used for inter-ISP or ISP-to-enterprise connections.
+2. **IBGP (Internal BGP)**: Used within a single AS, enabling BGP to coordinate routing policies across routers inside the same AS.
+
+## Setting Up BGP
+
+To configure BGP, the following components are generally required:
+
+* **BGP Routers**: The routers running BGP need to be set up with AS numbers and policies.
+* **Neighbor Relationships**: BGP routers establish neighbor (or "peer") relationships to exchange routing information. In EBGP, these neighbors are typically in different ASes, whereas in IBGP, they belong to the same AS.
+* **Route Policies**: These determine how routes are advertised or received. Policies are essential for maintaining control over routing decisions, as they allow network operators to prioritize specific paths or avoid others.
+
+Example BGP configuration may look something like this in Cisco IOS:
+```bash
+router bgp 65001
+ neighbor 192.168.0.1 remote-as 65002
+ network 10.0.0.0 mask 255.255.255.0
